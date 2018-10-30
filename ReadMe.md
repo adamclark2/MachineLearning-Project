@@ -11,6 +11,10 @@ The project for machine learning
 `./doc` The documentation folder  
 `./doc/project_proposal` The project proposal
 
+# Dir Structure
+`./doc` The documentation folder  
+`./helloTensorflowJava` A hello world for tensor flow in java
+
 # Latex
 This project uses latex download it at https://www.latex-project.org/get/
 
