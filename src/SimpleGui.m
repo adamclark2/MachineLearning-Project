@@ -97,8 +97,8 @@ classdef SimpleGui < handle
 
             numBtn = obj.createBtn('Hello Btn', numBtn, @obj.btnHelloWorld);
 
-            numBtn = obj.createBtn('Number of Males vs Females', numBtn, @obj.btnMaleVsFemaleScatter);
-            numBtn = obj.createBtn('Male vs Female Salary', numBtn, @obj.btnMaleVsFemalePieChart);
+            numBtn = obj.createBtn('Number of Males vs Females', numBtn, @obj.btnMaleVsFemalePieChart);
+            numBtn = obj.createBtn('Male vs Female Salary', numBtn, @obj.btnMaleVsFemaleScatter);
             numBtn = obj.createBtn('Male/Female vs Rank vs Salary', numBtn, @obj.btnMaleVsFemaleVsRankScatter); 
 
             numBtn = obj.createBtn('Years Since PHD Histogram', numBtn, @obj.btnYrsSincePhdHistogram);
