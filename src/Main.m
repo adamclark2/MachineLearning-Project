@@ -5,6 +5,8 @@ fprintf("---------------------------------\n")
 g = SimpleSalaryGraph('../data/salaries.csv');
 gui = SimpleGui(g);
 
+form = SimpleForm();
+
 % Wait for user to press enter
 % pause;
 fprintf("\n**END OF PROGRAM**\n")
