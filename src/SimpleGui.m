@@ -27,6 +27,11 @@ classdef SimpleGui < handle
             obj.salary_grapher = grapher;
             obj.fig = figure();
             obj.initGui();
+
+            obj.setFigureCurrent();
+            ax = gca;
+            ax.Position = [0.34 0.1100 0.65 0.8150];
+            obj.fig.Position = [10 100 900 400];
         end % Constructor
 
         % Allow external functions to
@@ -38,7 +43,6 @@ classdef SimpleGui < handle
         %%%%%%%%%%%%%%%%   btn handlers %%%%%%%%%%%%%%%%%%%%%
         function btnHelloWorld(obj, src, event)
             fprintf('Hello World!\n');
-            fprintf('[%d]\n', obj.create_new_figs.Value);
         end
 
         function btnMaleVsFemalePieChart(obj, src, event)
