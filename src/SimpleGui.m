@@ -1,6 +1,7 @@
 % A simple gui for SimpleSalaryGraph
 % This let's you use buttons instead of displaying all
 % The graphs at once
+% You can also 'pop' the graphs out if you want
 
 
 
@@ -9,17 +10,16 @@
 % https://www.mathworks.com/help/matlab/ref/uicontrol.html
 % https://www.mathworks.com/help/matlab/ref/uipanel.html
 
-% '<'' means "extends" in java terminology 
+% '<' means "extends" in java terminology 
 % extending handle means the object is pass
 % by reference instead of pass by value
 classdef SimpleGui < handle
 
     properties (Access = private)
         salary_grapher
-        fig
-        ax
 
-        create_new_figs
+        fig
+        create_new_figs_cbox
     end
 
     methods % public
@@ -27,9 +27,6 @@ classdef SimpleGui < handle
             obj.salary_grapher = grapher;
             obj.fig = figure();
             obj.initGui();
-        
-
-
         end % Constructor
 
         % Allow external functions to
@@ -91,7 +88,7 @@ classdef SimpleGui < handle
             b.String = 'Create New Figures';
             b.Position = [20 35*numBtn 230 30];
             b.Callback = @obj.btnHelloWorld;
-            obj.create_new_figs = b;
+            obj.create_new_figs_cbox = b;
             numBtn = numBtn + 1;
 
             numBtn = obj.createBtn('Hello Btn', numBtn, @obj.btnHelloWorld);
@@ -106,6 +103,7 @@ classdef SimpleGui < handle
             numBtn = obj.createBtn('Rank Vs Discipline Vs Salary', numBtn, @obj.btnRankVsDisciplineVsSalary);    
         end 
 
+        % Create A Button on the side of the current figure
         function num = createBtn(obj, name, indexOfBtn, btnHandlerFunc) 
             b = uicontrol();
             b.Style = 'pushbutton';
@@ -120,7 +118,7 @@ classdef SimpleGui < handle
         % This should be used in button handlers that
         % create graphs
         function obj = doFigureCreate(obj)
-            if obj.create_new_figs.Value == 1
+            if obj.create_new_figs_cbox.Value == 1
                 figure;
             else
                 obj.setFigureCurrent();
