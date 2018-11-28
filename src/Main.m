@@ -3,8 +3,8 @@ fprintf("By Adam Clark & Alex Dean\n")
 fprintf("---------------------------------\n")
 
 g = SimpleSalaryGraph('../data/salaries.csv');
-g.displayGraph();
+gui = SimpleGui(g);
 
 % Wait for user to press enter
-pause;
+% pause;
 fprintf("\n**END OF PROGRAM**\n")

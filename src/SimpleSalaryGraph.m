@@ -46,10 +46,7 @@ classdef SimpleSalaryGraph < handle
             rankVsDisciplineVsSalary(obj);
 
         end %end displayGraph()
-    end % end methods
 
-
-    methods (Access = private)
         function obj = maleVsFemalePieChart(obj) 
             pie(categorical(obj.salaries_vector.sex, {'Male', 'Female'}));
             title('Number of Males vs Females');
@@ -84,7 +81,7 @@ classdef SimpleSalaryGraph < handle
             scatter3(obj.salaries_vector.salary, categorical(obj.salaries_vector.rank, {'Prof', 'AsstProf'}), categorical(obj.salaries_vector.discipline, {'A', 'B'}));
             title('Rank Vs Discipline Vs Salary');
         end 
-        
-    end % end private methods
+
+    end % Methods
     
 end
