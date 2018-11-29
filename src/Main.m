@@ -24,6 +24,8 @@ umsDataUI = UMSDataGui();
 umsDataCtrl = UMSDataController();
 figure;
 umsDataCtrl.campusVsSalary();
+figure;
+umsDataCtrl.usmSalaryHistogram();
 
 %primaryView = PrimaryView(fc);
 

@@ -18,6 +18,11 @@ classdef UMSDataController
             title('Salary vs Campus');
         end
 
+        function obj = usmSalaryHistogram(obj)
+            histogram(obj.data(strcmp(obj.data.CMP,'USM'),:).Salbase);
+            title('USM Salary Histogram');
+        end
+
         % When importing data from the csv files
         % The infered data types are wrong
         % This fixes that
