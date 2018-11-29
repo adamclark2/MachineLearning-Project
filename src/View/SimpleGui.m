@@ -32,6 +32,9 @@ classdef SimpleGui < handle
             ax = gca;
             ax.Position = [0.34 0.1100 0.65 0.8150];
             obj.fig.Position = [10 100 900 400];
+
+            obj.fig.Visible = 'off';
+            obj.fig.CloseRequestFcn = @obj.onClose;
         end % Constructor
 
         % Allow external functions to
@@ -40,7 +43,20 @@ classdef SimpleGui < handle
             figure(obj.fig);
         end
 
+        function obj = setHidden(obj,bool)
+            obj.fig.Visible = bool;
+
+            if strcmp(bool, 'on')
+                obj.setFigureCurrent();
+            end
+        end
+
         %%%%%%%%%%%%%%%%   btn handlers %%%%%%%%%%%%%%%%%%%%%
+        function onClose(obj,src,callbackdata)
+            % Null op
+            obj.setHidden('off');
+        end
+
         function btnHelloWorld(obj, src, event)
             fprintf('Hello World!\n');
         end

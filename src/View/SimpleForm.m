@@ -29,6 +29,8 @@ classdef SimpleForm < handle
             obj.setFigureCurrent();
 
             obj.fig.Position = [10 100 270 650]
+
+            obj.fig.Visible = 'off';
         end % Constructor
 
         % Allow external functions to
