@@ -81,7 +81,7 @@ classdef SimpleSalaryGraph < handle
             scatter3(obj.salaries_vector.salary, categorical(obj.salaries_vector.rank, {'Prof', 'AsstProf'}), categorical(obj.salaries_vector.discipline, {'A', 'B'}));
             title('Rank Vs Discipline Vs Salary');
         end 
-
+        
     end % Methods
     
 end

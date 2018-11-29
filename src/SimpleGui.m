@@ -17,7 +17,7 @@ classdef SimpleGui < handle
 
     properties (Access = private)
         salary_grapher
-
+     
         fig
         create_new_figs_cbox
     end

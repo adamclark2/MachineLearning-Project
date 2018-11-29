@@ -17,11 +17,13 @@ classdef SimpleForm < handle
 
     properties (Access = private)
         fig
+        model
     end
 
     methods % public
-        function obj = SimpleForm() % Constructor
+        function obj = SimpleForm(model) % Constructor
             obj.fig = figure();
+            obj.model = model;
             obj.initGui();
 
             obj.setFigureCurrent();
@@ -47,18 +49,18 @@ classdef SimpleForm < handle
             numBtn = obj.createUICtrl('text', '$999,999.00', 12.5, numBtn);
             numBtn = obj.createUICtrl('pushbutton', 'Guess Salary', 12.5, numBtn);
 
-            numBtn = obj.createUICtrl('popupmenu', {'Prof', 'AsstProf'}, 12.5, numBtn);
+            numBtn = obj.createUICtrl('popupmenu', {'Prof', 'AsstProf', 'AssocProf'}, 12.5, numBtn);
             numBtn = obj.createUICtrl('text', 'Rank', 14, numBtn);
             numBtn = numBtn + 1;
             numBtn = obj.createUICtrl('popupmenu', {'A', 'B'}, 12.5, numBtn);
             numBtn = obj.createUICtrl('text', 'Discipline', 14, numBtn);
 
             numBtn = numBtn + 1;
-            numBtn = obj.createUICtrl('edit', '2', 12, numBtn);
+            numBtn = obj.createUICtrl('edit', '', 12, numBtn);
             numBtn = obj.createUICtrl('text', 'Years Since Phd', 12, numBtn);
 
             numBtn = numBtn + 1;
-            numBtn = obj.createUICtrl('edit', '2', 12, numBtn);
+            numBtn = obj.createUICtrl('edit', '', 12, numBtn);
             numBtn = obj.createUICtrl('text', 'Years of Service', 12, numBtn);
 
             numBtn = numBtn + 1;
