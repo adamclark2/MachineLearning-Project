@@ -3,8 +3,11 @@
 classdef UMSDataGui < handle & GUI
     properties (Access = private)
         fig
-
         cbox_pop_figures
+    end
+
+    properties %public
+        UMS_data_ctrl
     end
 
     methods % public
@@ -22,9 +25,32 @@ classdef UMSDataGui < handle & GUI
         function primary_fig = btnGeneric(obj,src,event)
             fprintf('Generic button press\n');
         end
+
+        function primary_fig = btnUsmSalaryHistogram(obj,src,event)
+            obj.doFigureCreate();
+            obj.UMS_data_ctrl.usmSalaryHistogram();
+        end
+
+        function primary_fig = btnCampusVsSalary(obj,src,event)
+            obj.doFigureCreate();
+            obj.UMS_data_ctrl.campusVsSalary();
+        end
     end % public methods
 
     methods (Access = private)
+
+    % Create a new figure if one needs to be created
+        % This should be used in button handlers that
+        % create graphs
+        function obj = doFigureCreate(obj)
+            if obj.cbox_pop_figures.Value == 1
+                figure;
+            else
+                figure(obj.fig);
+            end
+        end
+
+
         function obj = initGui(obj)
             figure(obj.fig);
 
@@ -33,14 +59,14 @@ classdef UMSDataGui < handle & GUI
 
             % Work-around to re-size axes
             scatter3([10 20 30],[10 20 30],[10 20 30]);
-            obj.fig.CurrentAxes.Position = [4/10 0 1-4/10-1/20 1];
+            obj.fig.CurrentAxes.Position = [4/10 0+1/20 1-4/10-1/20 1-2/20];
             scatter3([10 20 30],[10 20 30],[10 20 30]);
 
             % Add buttons to pane
-            b = obj.createButton(pane, 'Woot 1', @obj.btnGeneric);
+            b = obj.createButton(pane, 'Salary vs Campus', @obj.btnCampusVsSalary);
             b.Position = [0 1-((1/20)*1) 1 1/20];
 
-            b = obj.createButton(pane, 'Woot 2', @obj.btnGeneric);
+            b = obj.createButton(pane, 'USM Salary Histogram', @obj.btnUsmSalaryHistogram);
             b.Position = [0 1-((1/20)*2) 1 1/20];
 
             b = obj.createButton(pane, 'Woot 3', @obj.btnGeneric);

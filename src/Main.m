@@ -26,6 +26,7 @@ umsDataUI = UMSDataGui();
 umsDataUI.setVisibility('off');
 umsDataCtrl = UMSDataController();
 fc.ums_data_gui = umsDataUI;
+umsDataUI.UMS_data_ctrl = umsDataCtrl;
 
 primaryView = PrimaryView(fc);
 primaryView.setVisibility('on');
