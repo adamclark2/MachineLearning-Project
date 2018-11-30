@@ -36,6 +36,20 @@ classdef (Abstract) GUI < handle
             ret_figure.CloseRequestFcn = @obj.onClose;
         end
 
+        % Create a uipanel that supportes the 'x' button
+        function ret_panel = createPanel(obj,parent)
+            ret_panel = uipanel(parent);
+            ret_panel.Position = [0 0 3/10 1];
+        end
+
+        % Create a checkbox that supportes the 'x' button
+        function btn = createCheckbox(obj,parent,name)
+            btn = uicontrol(parent);
+            btn.Units = 'normalized';
+            btn.String = name;
+            btn.Style = 'checkbox';
+        end
+
         % On close hide the ui, so
         % the application can re-open
         % the window by calling setVisibility
