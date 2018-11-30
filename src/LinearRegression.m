@@ -87,11 +87,14 @@ classdef LinearRegression < handle
             % Init Theta and Run Gradient Descent 
             theta = zeros(6, 1);
             [obj.theta, obj.J] = gradientDescentMulti(X, y, theta, alpha, num_iters);
+
+            % Todo manage this in the front-gui or remove it
+            %
             % Plot the convergence graph
-            figure;
-            plot(1:numel(obj.J), obj.J, '-b', 'LineWidth', 2);
-            xlabel('Number of iterations');
-            ylabel('Cost J');
+            %figure;
+            %plot(1:numel(obj.J), obj.J, '-b', 'LineWidth', 2);
+            %xlabel('Number of iterations');
+            %ylabel('Cost J');
             result_theta = obj.theta;
         end
         

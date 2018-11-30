@@ -13,7 +13,7 @@
 % '<' means "extends" in java terminology 
 % extending handle means the object is pass
 % by reference instead of pass by value
-classdef SimpleForm < handle
+classdef SimpleForm < handle & GUI
 
     properties (Access = private)
         fig
@@ -22,14 +22,13 @@ classdef SimpleForm < handle
 
     methods % public
         function obj = SimpleForm(model) % Constructor
-            obj.fig = figure();
+            obj.fig = obj.createFigure();
             obj.model = model;
             obj.initGui();
 
             obj.setFigureCurrent();
 
             obj.fig.Position = [10 100 270 650]
-
             obj.fig.Visible = 'off';
         end % Constructor
 
@@ -37,6 +36,11 @@ classdef SimpleForm < handle
         % draw to this SimpleForm
         function obj = setFigureCurrent(obj)
             figure(obj.fig);
+        end
+
+        % Abstract implementation
+        function primary_fig = getPrimaryFigure(obj)
+            primary_fig = obj.fig;
         end
 
         %%%%%%%%%%%%%%%%   btn handlers %%%%%%%%%%%%%%%%%%%%%

@@ -13,7 +13,7 @@ classdef UMSDataController
 
     methods
 
-        function obj = campusVsSalary(obj)
+    function obj = campusVsSalary(obj)
             scatter(categorical(obj.data.CMP), obj.data.Salbase);
             title('Salary vs Campus');
         end

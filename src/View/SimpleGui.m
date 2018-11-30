@@ -13,7 +13,7 @@
 % '<' means "extends" in java terminology 
 % extending handle means the object is pass
 % by reference instead of pass by value
-classdef SimpleGui < handle
+classdef SimpleGui < handle & GUI
 
     properties (Access = private)
         salary_grapher
@@ -25,7 +25,7 @@ classdef SimpleGui < handle
     methods % public
         function obj = SimpleGui(grapher) % Constructor
             obj.salary_grapher = grapher;
-            obj.fig = figure();
+            obj.fig = obj.createFigure();
             obj.initGui();
 
             obj.setFigureCurrent();
@@ -34,8 +34,12 @@ classdef SimpleGui < handle
             obj.fig.Position = [10 100 900 400];
 
             obj.fig.Visible = 'off';
-            obj.fig.CloseRequestFcn = @obj.onClose;
         end % Constructor
+
+        % Abstract implementation
+        function primary_fig = getPrimaryFigure(obj)
+            primary_fig = obj.fig;
+        end
 
         % Allow external functions to
         % draw to this SimpleGui
@@ -43,19 +47,7 @@ classdef SimpleGui < handle
             figure(obj.fig);
         end
 
-        function obj = setHidden(obj,bool)
-            obj.fig.Visible = bool;
-
-            if strcmp(bool, 'on')
-                obj.setFigureCurrent();
-            end
-        end
-
         %%%%%%%%%%%%%%%%   btn handlers %%%%%%%%%%%%%%%%%%%%%
-        function onClose(obj,src,callbackdata)
-            % Null op
-            obj.setHidden('off');
-        end
 
         function btnHelloWorld(obj, src, event)
             fprintf('Hello World!\n');
