@@ -7,6 +7,9 @@ The project for machine learning
 |Nov 10th|Project Proposal Due|
 |||
 
+# Aux Data Sources
+`namesByGender.csv`https://github.com/organisciak/names/tree/master/data 
+
 # Documentation
 `./doc` The documentation folder  
 `./doc/project_proposal` The project proposal
