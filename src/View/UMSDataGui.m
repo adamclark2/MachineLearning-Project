@@ -35,6 +35,23 @@ classdef UMSDataGui < handle & GUI
             obj.doFigureCreate();
             obj.UMS_data_ctrl.campusVsSalary();
         end
+
+        function primary_fig = btnGenderPie(obj,src,event)
+            obj.doFigureCreate();
+            obj.UMS_data_ctrl.umsGenderPie();
+        end
+
+        function primary_fig = btnUmsGenderPayCMPScatter(obj,src,event)
+            obj.doFigureCreate();
+            obj.UMS_data_ctrl.umsGenderPayCMPScatter();
+        end
+
+        function primary_fig = btnUmsGenderDeptPayScatter(obj,src,event)
+            obj.doFigureCreate();
+            obj.UMS_data_ctrl.umsGenderDeptPayScatter();
+        end
+    
+        
     end % public methods
 
     methods (Access = private)
@@ -69,8 +86,14 @@ classdef UMSDataGui < handle & GUI
             b = obj.createButton(pane, 'USM Salary Histogram', @obj.btnUsmSalaryHistogram);
             b.Position = [0 1-((1/20)*2) 1 1/20];
 
-            b = obj.createButton(pane, 'Woot 3', @obj.btnGeneric);
+            b = obj.createButton(pane, 'UMS Number of Males vs Females', @obj.btnGenderPie);
             b.Position = [0 1-((1/20)*3) 1 1/20];
+
+            b = obj.createButton(pane, 'UMS Payment by Gender Accross Campuses', @obj.btnUmsGenderPayCMPScatter);
+            b.Position = [0 1-((1/20)*4) 1 1/20];
+
+            b = obj.createButton(pane, 'Pay By Gender Across UMS Department', @obj.btnUmsGenderDeptPayScatter);
+            b.Position = [0 1-((1/20)*5) 1 1/20];
 
             obj.cbox_pop_figures = obj.createCheckbox(pane, 'Create new figures');
             obj.cbox_pop_figures.Position = [0 1-((1/20)*20) 1 1/20];

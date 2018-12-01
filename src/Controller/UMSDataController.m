@@ -1,6 +1,12 @@
 classdef UMSDataController
     properties %public
+
+        % data is depreciated use iData
         data
+
+        % Data with interpreted valued
+        % eg. gender
+        iData
 
         % Raw data from csv
         data_apr_2017
@@ -22,6 +28,28 @@ classdef UMSDataController
             histogram(obj.data(strcmp(obj.data.CMP,'USM'),:).Salbase);
             title('USM Salary Histogram');
         end
+
+        function obj = umsGenderPie(obj)
+            pie(categorical(obj.iData.sex));
+            title('UMS Number of Males vs Females');
+        end
+
+        function obj = umsGenderPayCMPScatter(obj)
+            scatter3(categorical(obj.iData.sex), categorical(obj.iData.CMP),obj.iData.Salbase);
+            title('UMS Payment by Gender Accross Campuses');
+        end
+
+        function obj = umsGenderDeptPayScatter(obj)
+            % Remove Extremal Point
+            % Stephen Miller doesn't make ~1 million a year
+            % I'm sure he wants to though. 
+            %
+            % This must be an error with the 11-5-2018 dataset
+            newDat = obj.iData(obj.iData.Salbase < 900000, :);
+            scatter3(categorical(newDat.DeptID), categorical(newDat.sex),newDat.Salbase);
+            title('Pay By Gender Across UMS Department');
+        end
+
 
         % When importing data from the csv files
         % The infered data types are wrong
@@ -53,9 +81,6 @@ classdef UMSDataController
             obj.data_nov_2018 = readtable('../data/UMS_NOV_2018.csv');
             obj.data_nov_2018 = obj.fixColumnTypeForImport(obj.data_nov_2018);
 
-            obj.data_sep_2018 = readtable('../data/UMS_SEP_2018.csv');
-            obj.data_sep_2018 = obj.fixColumnTypeForImport(obj.data_sep_2018);
-
 
             % This code creates a master table
             % With the year and month added on
@@ -67,7 +92,8 @@ classdef UMSDataController
             data = obj.concatDatasetToData(obj.data_nov_2017, 11, 2017);
             data = obj.concatDatasetToData(obj.data_nov_2016, 11, 2016);
             data = obj.concatDatasetToData(obj.data_nov_2018, 11, 2018);
-            data = obj.concatDatasetToData(obj.data_sep_2018, 9, 2018);
+
+            obj.iData = readtable('../data/main_genderTable.csv');
         end
     end
 end
