@@ -17,13 +17,11 @@ classdef SimpleForm < handle
 
     properties (Access = private)
         fig
-        model
     end
 
     methods % public
-        function obj = SimpleForm(model) % Constructor
+        function obj = SimpleForm( % Constructor
             obj.fig = figure();
-            obj.model = model;
             obj.initGui();
 
             obj.setFigureCurrent();
