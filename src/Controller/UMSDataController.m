@@ -4,6 +4,9 @@ classdef UMSDataController
         % data is depreciated use iData
         data
 
+        % 'Salaryies.csv'
+        sal_data
+
         % Data with interpreted valued
         % eg. gender
         iData
@@ -37,6 +40,26 @@ classdef UMSDataController
         function obj = umsGenderPayCMPScatter(obj)
             scatter3(categorical(obj.iData.sex), categorical(obj.iData.CMP),obj.iData.Salbase);
             title('UMS Payment by Gender Accross Campuses');
+        end
+
+        function obj = umsGenderPay(obj)
+            % Remove Extremal Point
+            % Stephen Miller doesn't make ~1 million a year
+            % I'm sure he wants to though. 
+            %
+            % This must be an error with the 11-5-2018 dataset
+            newDat = obj.iData(obj.iData.Salbase < 900000, :);
+
+    
+            UMSCat = categorical(newDat.sex);
+            SALCat = categorical(obj.sal_data.sex);
+            UMSCat = renamecats(UMSCat, {'Male', 'Female'}, {'UMS - Male', 'UMS - Female'});
+            SALCat = renamecats(SALCat, {'Male', 'Female'}, {'SAL - Male', 'SAL - Female'});
+
+            scatter(newDat.Salbase, UMSCat);
+            hold on
+            scatter(obj.sal_data.salary,SALCat);
+            title('UMS vs salaries.csv -- Salary vs Gender');
         end
 
         function obj = umsGenderDeptPayScatter(obj)
@@ -94,6 +117,7 @@ classdef UMSDataController
             data = obj.concatDatasetToData(obj.data_nov_2018, 11, 2018);
 
             obj.iData = readtable('../data/main_genderTable.csv');
+            obj.sal_data = readtable('../data/salaries.csv');
         end
     end
 end

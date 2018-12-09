@@ -50,6 +50,11 @@ classdef UMSDataGui < handle & GUI
             obj.doFigureCreate();
             obj.UMS_data_ctrl.umsGenderDeptPayScatter();
         end
+
+        function primary_fig = btnUmsGenderPay(obj,src,event)
+            obj.doFigureCreate();
+            obj.UMS_data_ctrl.umsGenderPay();
+        end
     
         
     end % public methods
@@ -94,6 +99,12 @@ classdef UMSDataGui < handle & GUI
 
             b = obj.createButton(pane, 'Pay By Gender Across UMS Department', @obj.btnUmsGenderDeptPayScatter);
             b.Position = [0 1-((1/20)*5) 1 1/20];
+
+
+            b = obj.createButton(pane, 'Salary vs Gender', @obj.btnUmsGenderPay);
+            b.Position = [0 1-((1/20)*6) 1 1/20];
+
+            
 
             obj.cbox_pop_figures = obj.createCheckbox(pane, 'Create new figures');
             obj.cbox_pop_figures.Position = [0 1-((1/20)*20) 1 1/20];
