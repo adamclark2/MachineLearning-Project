@@ -60,6 +60,7 @@ classdef UMSDataController
             hold on
             scatter(obj.sal_data.salary,SALCat);
             title('UMS vs salaries.csv -- Salary vs Gender');
+            hold off
         end
 
         function obj = umsGenderDeptPayScatter(obj)

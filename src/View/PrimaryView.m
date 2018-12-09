@@ -52,13 +52,13 @@ classdef PrimaryView < handle & GUI
             b.Position = [ 0 1-btnHeight*3 1 btnHeight];
 
             % Todo create blurb
-            blurb = {'TODO: blurb goes here about ui ................... auto spans multiple lines \n doesnt work use other values in cell' ...
-            ,'', ...
-            'woot a new line!'};
-            b = obj.createTextLabel(obj.fig, blurb);
-            b.HorizontalAlignment = 'left';
-            b.FontSize = 18;
-            b.Position = [0 0 1 3/10];
+            %blurb = {'TODO: blurb goes here about ui ................... auto spans multiple lines \n doesnt work use other values in cell' ...
+            %,'', ...
+            %'woot a new line!'};
+            %b = obj.createTextLabel(obj.fig, blurb);
+           % b.HorizontalAlignment = 'left';
+           % b.FontSize = 18;
+           % b.Position = [0 0 1 3/10];
         end
 
     end % private methods
