@@ -42,14 +42,12 @@ classdef PrimaryView < handle & GUI
     methods (Access = private)
         function obj = initGui(obj)
             btnHeight = 1/10;
-            b = obj.createButton(obj.fig, 'Salary Data', @obj.btnSalaryData);
-            b.Position = [ 0 1-btnHeight 1 btnHeight];
 
             b = obj.createButton(obj.fig, 'UMS Data', @obj.btnUMSData);
-            b.Position = [ 0 1-btnHeight*2 1 btnHeight];
+            b.Position = [ 0 1-btnHeight*1 1 btnHeight];
 
             b = obj.createButton(obj.fig, 'Form', @obj.btnForm);
-            b.Position = [ 0 1-btnHeight*3 1 btnHeight];
+            b.Position = [ 0 1-btnHeight*2 1 btnHeight];
 
             % Todo create blurb
             %blurb = {'TODO: blurb goes here about ui ................... auto spans multiple lines \n doesnt work use other values in cell' ...
