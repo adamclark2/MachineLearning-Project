@@ -10,12 +10,8 @@ fprintf("---------------------------------\n")
 
 
 % Uncomment to run linear regression
-%theta = doLinearRegression('../data/salaries.csv');
-%g = SimpleSalaryGraph('../data/salaries.csv');
-%gui = SimpleGui(g);
-%fc.simple_gui = gui;
-%gui.setVisibility('off');
-%form = SimpleForm();
+theta = doLinearRegression('../data/salaries.csv');
+g = SimpleSalaryGraph('../data/salaries.csv');
 
 
 
@@ -33,6 +29,7 @@ gui.setVisibility('off');
 
 form = SimpleForm();
 form.setVisibility('off');
+form.theta = theta;
 fc.form = form;
 
 umsDataUI = UMSDataGui();
