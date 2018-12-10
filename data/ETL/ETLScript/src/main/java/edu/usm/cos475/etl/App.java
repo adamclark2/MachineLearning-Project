@@ -13,7 +13,7 @@ public class App
 {
     public static void main( String[] args ) throws Exception
     {
-        File file = new File(args[1]);
+        File file = new File(args[0]);
         PDDocument document = PDDocument.load(file);
 
         PDFTextStripper pdfStripper = new PDFTextStripper();
@@ -26,85 +26,99 @@ public class App
         Scanner sc = new Scanner(text);
         System.out.println("CMP,Formatted_Name,Dept ID,Title,Salbase,JobSt,Bargaining Unit,Faculty Appt,FTE");
         while(sc.hasNextLine()){
-            boolean isBadRecord = false;
-            String ln = sc.nextLine();
-            Scanner lnSc = new Scanner(ln);
+            try{
+                boolean isBadRecord = false;
+                String ln = sc.nextLine();
+                Scanner lnSc = new Scanner(ln);
 
-            if(ln.equals("CMP Formatted_Name Dept ID Title Salbase JobSt Bargaining Unit Faculty Appt FTE")){
-                isBadRecord = true;
-            }
-            
-            String nex = lnSc.next();
-            if(isCMP(nex) && !isBadRecord){
-                String system = nex;
 
-                String name = "";
-                nex = lnSc.next();
-                while(!isDept(nex) && !isBadRecord){
-                    name += nex + " ";
-                    if(!lnSc.hasNext()){
-                        isBadRecord = true;
-                    }else{
-                        nex = lnSc.next();
-                    }
+                if(ln.equals("CMP Formatted_Name Dept ID Title Salbase JobSt Bargaining Unit Faculty Appt FTE")
+                    || ln.equals("CMP Name Dept ID Title Salary Jobst Bargaining Unit Faculty Appt FTE")
+                ){
+                    isBadRecord = true;
                 }
-                String dept = nex;
+                
+                String nex = lnSc.next();
+                if(isCMP(nex) && !isBadRecord){
+                    String system = nex;
 
-
-                if(!isBadRecord){
-                    String title = "" ;
-                    String salary = "";
-
-                    nex = lnSc.next();
-                    while(!isNumber(nex) && !isBadRecord){
-                        title += nex + " ";
+                    String name = "";
+                    try{
+                        nex = lnSc.next();
+                    }catch(Exception e){
+                        nex = "";
+                        isBadRecord = true;
+                    }
+                    
+                    while(!isDept(nex) && !isBadRecord){
+                        name += nex + " ";
                         if(!lnSc.hasNext()){
                             isBadRecord = true;
                         }else{
                             nex = lnSc.next();
                         }
                     }
-                    salary = nex;
+                    String dept = nex;
 
-                    if(!lnSc.hasNext()){
-                        isBadRecord = true;
-                        System.out.println("ERROR ln=" + ln);
-                        System.exit(1);
-                    }
 
-                    nex = lnSc.next();
-                    String jobStatus = nex;
+                    if(!isBadRecord){
+                        String title = "" ;
+                        String salary = "";
 
-                    nex = lnSc.next();
-                    String barginUnit = "";
-                    while(!isFacultyAppt(nex) && !isNumber(nex) && !isBadRecord){
-                        barginUnit += nex + " ";
+                        nex = lnSc.next();
+                        while(!isNumber(nex) && !isBadRecord){
+                            title += nex + " ";
+                            if(!lnSc.hasNext()){
+                                isBadRecord = true;
+                            }else{
+                                nex = lnSc.next();
+                            }
+                        }
+
+                        // Some programs can't parse double
+                        // with the thousands seperator ...
+                        salary = nex.replace(",", "");
+
                         if(!lnSc.hasNext()){
                             isBadRecord = true;
-                        }else{
-                            nex = lnSc.next();
                         }
-                    }
 
-                    String FacultyAppt = "";
-                    String FTE = "";
-
-                    if(isNumber(nex)){
-                        FTE = nex;
-                    }else{
-                        FacultyAppt = nex;
                         nex = lnSc.next();
-                        FTE = nex;
-                    }
+                        String jobStatus = nex;
 
-                    System.out.println("\"" + system + "\",\"" + name + "\",\"" + dept + "\",\"" + title + "\",\"" + salary + "\",\"" + jobStatus + "\",\"" + barginUnit + "\",\"" + FacultyAppt + "\",\"" + FTE + "\"");
+                        nex = lnSc.next();
+                        String barginUnit = "";
+                        while(!isFacultyAppt(nex) && !isNumber(nex) && !isBadRecord){
+                            barginUnit += nex + " ";
+                            if(!lnSc.hasNext()){
+                                isBadRecord = true;
+                            }else{
+                                nex = lnSc.next();
+                            }
+                        }
 
-                    if(!deptCount.containsKey(dept)){
-                        deptCount.put(dept, 0L);
+                        String FacultyAppt = "";
+                        String FTE = "";
+
+                        if(isNumber(nex)){
+                            FTE = nex;
+                        }else{
+                            FacultyAppt = nex;
+                            nex = lnSc.next();
+                            FTE = nex;
+                        }
+
+                        System.out.println("\"" + system + "\",\"" + name + "\",\"" + dept + "\",\"" + title + "\",\"" + salary + "\",\"" + jobStatus + "\",\"" + barginUnit + "\",\"" + FacultyAppt + "\",\"" + FTE + "\"");
+
+                        if(!deptCount.containsKey(dept)){
+                            deptCount.put(dept, 0L);
+                        }
+                        deptCount.put(dept, deptCount.get(dept) + 1);
                     }
-                    deptCount.put(dept, deptCount.get(dept) + 1);
+        
                 }
-    
+            }catch(Exception e){
+                // Bad record ... continue
             }
         }
 
@@ -124,6 +138,7 @@ public class App
     }
 
     private static boolean isNumber(String nex){
+        nex = nex.replace(",", "");
         try{
             Double.parseDouble(nex);
             return true;

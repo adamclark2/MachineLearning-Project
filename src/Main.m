@@ -1,14 +1,52 @@
-clear ; close all; clc
+addpath('View');
+addpath('Controller');
+
+
 fprintf("Welcome to Salary Estimator\n")
 fprintf("By Adam Clark & Alex Dean\n")
 fprintf("---------------------------------\n")
+% ________________________________________________________________________
 
-theta = doLinearRegression('../data/salaries.csv');
+
+
+% Uncomment to run linear regression
+%theta = doLinearRegression('../data/salaries.csv');
+%g = SimpleSalaryGraph('../data/salaries.csv');
+%gui = SimpleGui(g);
+%fc.simple_gui = gui;
+%gui.setVisibility('off');
+%form = SimpleForm();
+
+
+
+% ________________________________________________________________________
+
+
+
+% UI Stuff, comment to hide ui
+fc = FrontController();
+
 g = SimpleSalaryGraph('../data/salaries.csv');
 gui = SimpleGui(g);
+fc.simple_gui = gui;
+gui.setVisibility('off');
 
 form = SimpleForm();
+form.setVisibility('off');
+fc.form = form;
 
-% Wait for user to press enter
-% pause;
-fprintf("\n**END OF PROGRAM**\n")
+umsDataUI = UMSDataGui();
+umsDataUI.setVisibility('off');
+umsDataCtrl = UMSDataController();
+fc.ums_data_gui = umsDataUI;
+umsDataUI.UMS_data_ctrl = umsDataCtrl;
+
+primaryView = PrimaryView(fc);
+primaryView.setVisibility('on');
+
+
+
+
+% ___________________ END OF PROGRAM ___________________ 
+% ______________________________________________________
+fprintf("\n**  DONE LOADING  **\n")
